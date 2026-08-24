@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WM | 创意作品集</title>
+    <!-- 引入外部资源 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6C5CE7', // 主色调：紫色
+                        secondary: '#00CEFF', // 辅助色：亮蓝
+                        dark: '#1A1A2E', // 深色背景
+                        light: '#F8F9FA', // 浅色背景
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-balance {
+                text-wrap: balance;
+            }
+            .hover-lift {
+                @apply transition-transform duration-300 hover:-translate-y-1;
+            }
+            .gradient-mask {
+                mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+            }
+        }
+    </style>
+    
+    <style>
+        /* 全局样式 */
+        body {
+            scroll-behavior: smooth;
+        }
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6C5CE7;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5a4cd6;
+        }
+        
+        /* 音频播放器样式 */
+        audio {
+            width: 100%;
+            background: transparent;
+            border: none;
+        }
+        audio::-webkit-media-controls-panel {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body class="bg-light text-dark font-sans">
+    <!-- 导航栏 -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-500" id="navbar">
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-tighter">
+                <span class="text-primary">WM</span>
+            </a>
+            
+            <!-- 桌面端导航 -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-sm uppercase tracking-wider hover:text-primary transition-colors">关于</a>
+                <a href="#music" class="text-sm uppercase tracking-wider hover:text-primary transition-colors">音乐</a>
+                <a href="#software" class="text-sm uppercase tracking-wider hover:text-primary transition-colors">软件</a>
+                <a href="#articles" class="text-sm uppercase tracking-wider hover:text-primary transition-colors">文章</a>
+                <a href="#contact" class="text-sm uppercase tracking-wider hover:text-primary transition-colors">联系</a>
+            </nav>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="menuToggle" class="md:hidden text-dark focus:outline-none">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white/95 backdrop-blur-md absolute top-full left-0 w-full border-t border-gray-100 shadow-lg">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="#about" class="text-sm uppercase tracking-wider py-2 hover:text-primary transition-colors">关于</a>
+                <a href="#music" class="text-sm uppercase tracking-wider py-2 hover:text-primary transition-colors">音乐</a>
+                <a href="#software" class="text-sm uppercase tracking-wider py-2 hover:text-primary transition-colors">软件</a>
+                <a href="#articles" class="text-sm uppercase tracking-wider py-2 hover:text-primary transition-colors">文章</a>
+                <a href="#contact" class="text-sm uppercase tracking-wider py-2 hover:text-primary transition-colors">联系</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 英雄区域 -->
+        <section class="h-screen flex items-center justify-center relative overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <div class="absolute inset-0 bg-gradient-to-b from-dark/5 to-light"></div>
+                <img src="https://picsum.photos/1920/1080?random=100" alt="背景" class="w-full h-full object-cover object-center opacity-20">
+            </div>
+            
+            <div class="container mx-auto px-4 z-10 text-center">
+                <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold tracking-tight mb-6 leading-none">
+                    创意与技术的<br><span class="text-primary">交汇点</span>
+                </h1>
+                <p class="text-[clamp(1rem,3vw,1.25rem)] text-gray-600 max-w-2xl mx-auto mb-10 text-balance">
+                    音乐制作人 · 软件开发者 · 思考者
+                </p>
+                <a href="#about" class="inline-block animate-bounce">
+                    <i class="fa fa-angle-down text-2xl text-primary"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- 关于我 -->
+        <section id="about" class="py-24 md:py-32">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-12 tracking-tight">
+                        <span class="inline-block border-b-2 border-primary pb-2">关于我</span>
+                    </h2>
+                    
+                    <div class="flex flex-col md:flex-row gap-12 items-center">
+                        <div class="md:w-1/3">
+                            <div class="relative">
+                                <div class="aspect-square rounded-lg overflow-hidden">
+                                    <img src="https://picsum.photos/600/600?random=10" alt="个人照片" class="w-full h-full object-cover">
+                                </div>
+                                <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-primary rounded-lg flex items-center justify-center text-white">
+                                    <span class="text-2xl font-mono">26</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-2/3">
+                            <p class="text-gray-700 mb-6 leading-relaxed">
+                                我是一名游走在音乐与代码之间的创作者。白天，我编写优雅的程序解决复杂问题；夜晚，我用音符构建声音的宇宙。
+                            </p>
+                            <p class="text-gray-700 mb-8 leading-relaxed">
+                                对我而言，音乐和编程是相通的——都需要逻辑与创意的平衡，都追求简洁中的复杂，都在规则中寻找自由。
+                            </p>
+                            
+                            <div class="grid grid-cols-2 gap-6">
+                                <div>
+                                    <h3 class="text-sm uppercase tracking-wider text-gray-500 mb-3">技能</h3>
+                                    <ul class="space-y-2 text-sm">
+                                        <li class="flex items-center">
+                                            <i class="fa fa-check text-primary mr-2"></i>
+                                            <span>音乐制作 / 混音</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fa fa-check text-primary mr-2"></i>
+                                            <span>Python / JavaScript</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fa fa-check text-primary mr-2"></i>
+                                            <span>UI/UX 设计</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-sm uppercase tracking-wider text-gray-500 mb-3">工具</h3>
+                                    <ul class="space-y-2 text-sm">
+                                        <li class="flex items-center">
+                                            <i class="fa fa-check text-primary mr-2"></i>
+                                            <span>Ableton Live</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fa fa-check text-primary mr-2"></i>
+                                            <span>VS Code</span>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <i class="fa fa-check text-primary mr-2"></i>
+                                            <span>Figma</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 音乐作品 -->
+        <section id="music" class="py-24 md:py-32 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-12 tracking-tight max-w-4xl mx-auto">
+                    <span class="inline-block border-b-2 border-primary pb-2">音乐作品</span>
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- 音乐作品 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover-lift">
+                        <div class="aspect-video rounded-md overflow-hidden mb-4">
+                            <img src="https://picsum.photos/600/400?random=20" alt="音乐封面：电子梦境" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">电子梦境</h3>
+                        <p class="text-gray-600 text-sm mb-4">实验电子 · 2023</p>
+                        <audio controls>
+                            <source src="#" type="audio/mpeg">
+                            您的浏览器不支持音频播放
+                        </audio>
+                    </div>
+                    
+                    <!-- 音乐作品 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover-lift">
+                        <div class="aspect-video rounded-md overflow-hidden mb-4">
+                            <img src="https://picsum.photos/600/400?random=21" alt="音乐封面：城市脉搏" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">城市脉搏</h3>
+                        <p class="text-gray-600 text-sm mb-4">环境电子 · 2023</p>
+                        <audio controls>
+                            <source src="#" type="audio/mpeg">
+                            您的浏览器不支持音频播放
+                        </audio>
+                    </div>
+                    
+                    <!-- 音乐作品 3 -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm hover-lift">
+                        <div class="aspect-video rounded-md overflow-hidden mb-4">
+                            <img src="https://picsum.photos/600/400?random=22" alt="音乐封面：代码节奏" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">代码节奏</h3>
+                        <p class="text-gray-600 text-sm mb-4">IDM · 2022</p>
+                        <audio controls>
+                            <source src="#" type="audio/mpeg">
+                            您的浏览器不支持音频播放
+                        </audio>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <a href="#" class="inline-block border-2 border-primary text-primary font-medium px-6 py-3 rounded-lg hover:bg-primary hover:text-white transition-colors">
+                        查看全部作品
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 软件项目 -->
+        <section id="software" class="py-24 md:py-32">
+            <div class="container mx-auto px-4">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-12 tracking-tight max-w-4xl mx-auto">
+                    <span class="inline-block border-b-2 border-primary pb-2">软件项目</span>
+                </h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                    <!-- 项目 1 -->
+                    <div class="group">
+                        <div class="relative overflow-hidden rounded-lg mb-6">
+                            <img src="https://picsum.photos/800/500?random=30" alt="音频可视化工具" class="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                                <div class="p-6 w-full">
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex space-x-3">
+                                            <a href="#" class="text-white hover:text-primary transition-colors">
+                                                <i class="fa fa-github text-xl"></i>
+                                            </a>
+                                            <a href="#" class="text-white hover:text-primary transition-colors">
+                                                <i class="fa fa-external-link text-xl"></i>
+                                            </a>
+                                        </div>
+                                        <span class="bg-primary text-white text-xs px-3 py-1 rounded-full">Python</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">音频可视化工具</h3>
+                        <p class="text-gray-600 mb-4">将音频波形转换为动态视觉效果的桌面应用，支持自定义参数和导出视频。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full">Pygame</span>
+                            <span class="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full">FFmpeg</span>
+                            <span class="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full">音频处理</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 项目 2 -->
+                    <div class="group">
+                        <div class="relative overflow-hidden rounded-lg mb-6">
+                            <img src="https://picsum.photos/800/500?random=31" alt="音乐制作辅助工具" class="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                                <div class="p-6 w-full">
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex space-x-3">
+                                            <a href="#" class="text-white hover:text-primary transition-colors">
+                                                <i class="fa fa-github text-xl"></i>
+                                            </a>
+                                            <a href="#" class="text-white hover:text-primary transition-colors">
+                                                <i class="fa fa-external-link text-xl"></i>
+                                            </a>
+                                        </div>
+                                        <span class="bg-primary text-white text-xs px-3 py-1 rounded-full">JavaScript</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">音乐制作辅助工具</h3>
+                        <p class="text-gray-600 mb-4">基于Web的音乐创作助手，提供和弦进行生成、节奏编程和音阶建议功能。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full">React</span>
+                            <span class="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full">Web Audio API</span>
+                            <span class="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full">音乐理论</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <a href="#" class="inline-block border-2 border-primary text-primary font-medium px-6 py-3 rounded-lg hover:bg-primary hover:text-white transition-colors">
+                        浏览所有项目
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 文章 -->
+        <section id="articles" class="py-24 md:py-32 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-12 tracking-tight max-w-4xl mx-auto">
+                    <span class="inline-block border-b-2 border-primary pb-2">思考与文章</span>
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- 文章 1 -->
+                    <article class="bg-white p-6 rounded-lg shadow-sm hover-lift">
+                        <span class="text-xs text-gray-500">2023年6月15日</span>
+                        <h3 class="text-xl font-bold my-3 hover:text-primary transition-colors">
+                            <a href="#">音乐与代码：创造性思维的两种表达</a>
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            探索音乐创作和编程之间的相似之处，以及如何将一种领域的思维方式应用到另一种领域中...
+                        </p>
+                        <a href="#" class="text-primary text-sm font-medium hover:underline inline-flex items-center">
+                            阅读更多 <i class="fa fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </article>
+                    
+                    <!-- 文章 2 -->
+                    <article class="bg-white p-6 rounded-lg shadow-sm hover-lift">
+                        <span class="text-xs text-gray-500">2023年5月28日</span>
+                        <h3 class="text-xl font-bold my-3 hover:text-primary transition-colors">
+                            <a href="#">制作电子音乐的10个编程思维技巧</a>
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            作为程序员，我发现编程中的逻辑思维和问题解决能力可以直接应用到音乐制作过程中...
+                        </p>
+                        <a href="#" class="text-primary text-sm font-medium hover:underline inline-flex items-center">
+                            阅读更多 <i class="fa fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </article>
+                    
+                    <!-- 文章 3 -->
+                    <article class="bg-white p-6 rounded-lg shadow-sm hover-lift">
+                        <span class="text-xs text-gray-500">2023年4月10日</span>
+                        <h3 class="text-xl font-bold my-3 hover:text-primary transition-colors">
+                            <a href="#">构建音乐可视化工具的技术挑战</a>
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            分享我在开发音频可视化应用时遇到的技术难题和解决方案，从FFmpeg集成到实时渲染...
+                        </p>
+                        <a href="#" class="text-primary text-sm font-medium hover:underline inline-flex items-center">
+                            阅读更多 <i class="fa fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </article>
+                    
+                    <!-- 文章 4 -->
+                    <article class="bg-white p-6 rounded-lg shadow-sm hover-lift">
+                        <span class="text-xs text-gray-500">2023年3月5日</span>
+                        <h3 class="text-xl font-bold my-3 hover:text-primary transition-colors">
+                            <a href="#">用代码创作音乐：算法作曲的入门指南</a>
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            如何使用算法和代码生成音乐片段？本文介绍几种基础方法和工具，适合程序员入门...
+                        </p>
+                        <a href="#" class="text-primary text-sm font-medium hover:underline inline-flex items-center">
+                            阅读更多 <i class="fa fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </article>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <a href="#" class="inline-block border-2 border-primary text-primary font-medium px-6 py-3 rounded-lg hover:bg-primary hover:text-white transition-colors">
+                        所有文章
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系 -->
+        <section id="contact" class="py-24 md:py-32">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-12 tracking-tight">
+                        <span class="inline-block border-b-2 border-primary pb-2">保持联系</span>
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div>
+                            <p class="text-gray-700 mb-8">
+                                对我的音乐、项目或文章感兴趣？随时联系我，聊聊创意、技术或合作可能性。
+                            </p>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-start">
+                                    <div class="bg-primary/10 p-3 rounded-lg mr-4">
+                                        <i class="fa fa-envelope text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold mb-1">邮件</h3>
+                                        <a href="mailto:hello@nova.com" class="text-gray-600 hover:text-primary transition-colors">hello@nova.com</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="bg-primary/10 p-3 rounded-lg mr-4">
+                                        <i class="fa fa-map-marker text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold mb-1">地点</h3>
+                                        <p class="text-gray-600">上海 · 中国</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-10">
+                                <h3 class="font-bold mb-4">社交媒体</h3>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                        <i class="fa fa-spotify"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                        <i class="fa fa-soundcloud"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                        <i class="fa fa-github"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <form class="space-y-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">姓名</label>
+                                    <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors" placeholder="你的名字">
+                                </div>
+                                
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">邮箱</label>
+                                    <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors" placeholder="your@email.com">
+                                </div>
+                                
+                                <div>
+                                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1">消息</label>
+                                    <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors" placeholder="想对我说些什么..."></textarea>
+                                </div>
+                                
+                                <button type="submit" class="w-full bg-primary text-white font-medium px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors">
+                                    发送消息
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                    <a href="#" class="text-2xl font-bold tracking-tighter mb-4 md:mb-0">
+                        <span class="text-primary">NOVA</span>
+                    </a>
+                    
+                    <nav class="flex flex-wrap justify-center gap-x-8 gap-y-2">
+                        <a href="#about" class="text-sm text-gray-400 hover:text-white transition-colors">关于</a>
+                        <a href="#music" class="text-sm text-gray-400 hover:text-white transition-colors">音乐</a>
+                        <a href="#software" class="text-sm text-gray-400 hover:text-white transition-colors">软件</a>
+                        <a href="#articles" class="text-sm text-gray-400 hover:text-white transition-colors">文章</a>
+                        <a href="#contact" class="text-sm text-gray-400 hover:text-white transition-colors">联系</a>
+                    </nav>
+                </div>
+                
+                <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                    <p>&copy; 2023 NOVA. 保留所有权利。</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            // 切换图标
+            const icon = menuToggle.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+        
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-sm');
+                navbar.classList.remove('py-6');
+                navbar.classList.add('py-4');
+            } else {
+                navbar.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-sm');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-6');
+            }
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // 关闭移动菜单（如果打开）
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    const icon = menuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
